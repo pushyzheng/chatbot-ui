@@ -5,26 +5,28 @@ export const OpenAIStream = async (messages: Message[]) => {
   const encoder = new TextEncoder();
   const decoder = new TextDecoder();
 
+  let body = JSON.stringify({
+    model: OpenAIModel.DAVINCI_TURBO,
+    messages: [
+      {
+        role: "system",
+        content: '你是一名英语老师， 会纠正我说的每句英语'
+      },
+      ...messages
+    ],
+    max_tokens: 800,
+    temperature: 0.0,
+    stream: true
+  })
   const res = await fetch("https://api.openai.com/v1/chat/completions", {
     headers: {
       "Content-Type": "application/json",
       Authorization: `Bearer ${process.env.OPENAI_API_KEY}`
     },
     method: "POST",
-    body: JSON.stringify({
-      model: OpenAIModel.DAVINCI_TURBO,
-      messages: [
-        {
-          role: "system",
-          content: `You are a helpful, friendly, assistant.`
-        },
-        ...messages
-      ],
-      max_tokens: 800,
-      temperature: 0.0,
-      stream: true
-    })
+    body: body
   });
+  console.log(body)
 
   if (res.status !== 200) {
     throw new Error("OpenAI API returned an error");

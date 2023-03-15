@@ -84,7 +84,7 @@ export default function Home() {
     setMessages([
       {
         role: "assistant",
-        content: `Hi there! I'm Chatbot UI, an AI assistant. I can help you with things like answering questions, providing information, and helping with tasks. How can I help you?`
+        content: `Hello, I am a teacher. My name is mary. You can talk to me and if you make any mistakes in English, I will correct them promptly.`
       }
     ]);
   }, []);
